@@ -1,6 +1,6 @@
 // Creo un objeto llamado "patentes" que guarda los valores de cada bimestre
 
-const patentes = {
+const patentes = { 
     "Enero-Febrero": undefined,
     "Marzo/Abril": undefined,
     "Mayo/Junio": undefined,
