@@ -20,7 +20,8 @@ Formato
 
 -Guarda los archivos JS, CSS y JSON en subcarpetas 
 
-<---------------> Sugerencias<--------------->
+<---------------> Sugerencias <--------------->
+
 -En esta etapa debes integrar JavaScript con HTML y/o con CSS
 -Termina de diseñar la estética visual necesaria en tu webapp con CSS y/o un framework CSS
 -Los algoritmos de JS deben ser invocados desde HTML, e interactuar con el contenido web, creando HTML, leyendo y procesando datos ingresados desde formularios, inputs, etcétera
