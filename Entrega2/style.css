@@ -1,3 +1,121 @@
-* {
-    background-color: cadetblue;
+/* ESTILOS GENERALES - Aquí definimos cómo se ve la página */
+
+/* Resetear márgenes y padding: Quitamos los espacios por defecto que el navegador agrega */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos del body (el fondo de la página) */
+body {
+  display: flex;                    /* Usa flexbox para alinear elementos */
+  flex-direction: column;            /* Alinea los elementos verticalmente (uno debajo del otro) */
+  background-color: #ddd;           /* Color de fondo gris */
+  min-height: 100vh;                /* Ocupa al menos toda la altura de la ventana */
+  justify-content: center;           /* Centra los elementos verticalmente */
+  align-items: center;              /* Centra los elementos horizontalmente */
+  padding: 16px;                    /* Espacio interno alrededor */
+  box-sizing: border-box;           /* Incluye el padding en el tamaño total */
+}
+
+/* Estilos del formulario */
+form {
+  display: flex;                    /* Usa flexbox para organizar los elementos internos */
+  flex-direction: column;            /* Ordena los elementos de arriba hacia abajo */
+  width: 100%;                      /* Ancho al 100% del contenedor */
+  max-width: 560px;                 /* Pero máximo 560px de ancho */
+  margin: 0 auto;                   /* Centra el formulario horizontalmente */
+  padding: 15px;                    /* Espacio interno en el formulario */
+  border: 1px solid #ccc;           /* Borde gris de 1px */
+  border-radius: 8px;               /* Esquinas redondeadas */
+  background-color: #f9f9f9;        /* Color de fondo blanco casi puro */
+  text-align: center;               /* Centra el texto */
+  box-sizing: border-box;           /* Incluye padding y border en el tamaño */
+}
+
+/* Estilos del contenedor de inputs (card-res-body) */
+.card-res-body {
+  display: grid;                    /* Usa grid para organizar etiquetas e inputs en columnas */
+  grid-template-columns: auto 1fr;  /* Primera columna ancho automático (para labels), segunda toma el resto */
+  gap: 10px 12px;                   /* Espacio entre elementos: 10px vertical, 12px horizontal */
+  padding: 10px;                    /* Espacio interno */
+  margin: 0 auto;                   /* Centra el grid */
+  align-items: center;              /* Alinea verticalmente los elementos en el grid */
+  width: 100%;                      /* Ancho completo */
+  box-sizing: border-box;           /* Incluye padding en el tamaño */
+}
+
+/* Estilos de las etiquetas (labels) */
+.card-res-body label {
+  text-align: left;                 /* Alinea el texto a la izquierda */
+  font-weight: 600;                 /* Texto más grueso/bold */
+  white-space: nowrap;              /* No deja que el texto se divida en varias líneas */
+}
+
+/* Estilos de los inputs y selects */
+.card-res-body input,
+.card-res-body select {
+  width: 100%;                      /* Ancho completo del contenedor */
+  padding: 8px;                     /* Espacio interno en los inputs */
+  border: 1px solid #ccc;           /* Borde gris */
+  border-radius: 4px;               /* Esquinas levemente redondeadas */
+  box-sizing: border-box;           /* Incluye padding en el tamaño */
+}
+
+/* Estilos compartidos para ambos botones */
+.btnCalcular,
+.btnBorrar {
+  margin-top: 8px;                  /* Espacio arriba del botón */
+  padding: 10px 20px;               /* Espacio interno: 10px arriba-abajo, 20px izquierda-derecha */
+  color: white;                     /* Color del texto blanco */
+  border: none;                     /* Sin borde */
+  border-radius: 8px;               /* Esquinas redondeadas */
+  cursor: pointer;                  /* Cambia el cursor a manita cuando pasas el mouse */
+  font-size: 1em;                   /* Tamaño normal de fuente */
+  font-weight: 600;                 /* Texto más grueso */
+  transition: background-image 0.2s ease, opacity 0.2s ease;  /* Animación suave al pasar el mouse */
+}
+
+/* Color azul del botón Calcular */
+.btnCalcular {
+  background-color: cornflowerblue;
+}
+
+/* Efecto del botón Calcular cuando pasas el mouse */
+.btnCalcular:hover {
+  background-image: linear-gradient(45deg, #2d69da, cornflowerblue);  /* Gradiente de colores */
+}
+
+/* Color rojo del botón Borrar */
+.btnBorrar {
+  background-color: rgb(237, 100, 100);
+}
+
+/* Estilos del elemento que muestra el total */
+.resultado {
+    display: none;                  /* Al principio está oculto */
+    margin-top: 8px;                /* Espacio arriba */
+    padding: 8px;                   /* Espacio interno */
+    border-top: 2px solid #ccc;     /* Línea gris arriba */
+    font-size: 1em;                 /* Tamaño de fuente normal */
+    font-weight: 700;               /* Texto muy grueso */
+    color: #333;                    /* Color gris oscuro */
+    text-align: center;             /* Centra el texto */
+}
+
+/* Efecto del botón Borrar cuando pasas el mouse */
+.btnBorrar:hover {
+  background-image: linear-gradient(45deg, #da362d, rgb(237, 100, 100));  /* Gradiente rojo */
+}
+
+/* Estilos para pantallas pequeñas (celulares) */
+@media (max-width: 400px) {
+  .card-res-body {
+    grid-template-columns: 1fr;     /* En celulares, solo una columna */
+  }
+
+  .card-res-body label {
+    margin-bottom: -8px;            /* Reduce el espacio entre label e input */
+  }
 }
