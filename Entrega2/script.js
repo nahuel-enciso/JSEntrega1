@@ -1,6 +1,58 @@
 /* JAVASCRIPT - Aquí va la lógica e interactividad de la página */
 
-/* Selecciona los elementos del HTML que vamos a usar en JavaScript */
+/* ========== FUNCIONALIDAD DE MODO OSCURO/CLARO ========== */
+
+/* Obtiene el botón para cambiar tema */
+const btnModoDarkLight = document.querySelector('#btnModoDarkLight');
+
+/* Función que alterna entre modo claro y oscuro */
+function toggleDarkMode() {
+    /* Obtiene el body */
+    const body = document.body;
+    
+    /* Agrega o quita la clase 'dark-mode' del body */
+    body.classList.toggle('dark-mode');  /* toggle = si tiene la clase la quita, si no la tiene la agrega */
+    
+    /* Obtiene si ahora está en modo oscuro */
+    const isDarkMode = body.classList.contains('dark-mode');  /* contains = verifica si tiene la clase */
+    
+    /* Guarda la preferencia en localStorage para que persista después de recargar la página */
+    localStorage.setItem('darkMode', isDarkMode);  /* localStorage = almacenamiento local del navegador */
+    
+    /* Cambia el título del botón para reflejar el siguiente modo */
+    if (isDarkMode) {
+        btnModoDarkLight.setAttribute('title', 'Cambiar a modo claro');
+        btnModoDarkLight.textContent = '☀️';  /* Cambia el icono a sol (modo claro) */
+    } else {
+        btnModoDarkLight.setAttribute('title', 'Cambiar a modo oscuro');
+        btnModoDarkLight.textContent = '🌙';  /* Cambia el icono a luna (modo oscuro) */
+    }
+}
+
+/* Carga la preferencia de tema al cargar la página */
+function loadThemePreference() {
+    /* Obtiene del localStorage si estaba en modo oscuro */
+    const savedDarkMode = localStorage.getItem('darkMode');  /* getItem = obtiene un valor guardado */
+    
+    /* Si había guardado que estaba en modo oscuro, lo aplica */
+    if (savedDarkMode === 'true') {
+        document.body.classList.add('dark-mode');  /* Agrega la clase dark-mode */
+        btnModoDarkLight.setAttribute('title', 'Cambiar a modo claro');
+        btnModoDarkLight.textContent = '☀️';  /* Muestra el icono de sol */
+    } else {
+        /* Si no, se queda en modo claro (por defecto) */
+        btnModoDarkLight.setAttribute('title', 'Cambiar a modo oscuro');
+        btnModoDarkLight.textContent = '🌙';  /* Muestra el icono de luna */
+    }
+}
+
+/* Cuando hace click en el botón de tema, ejecuta la función toggleDarkMode */
+btnModoDarkLight.addEventListener('click', toggleDarkMode);
+
+/* Al cargar la página, carga la preferencia guardada */
+loadThemePreference();
+
+/* ========== FUNCIONALIDAD DEL FORMULARIO (CALCULADORA) ========== */
 const form = document.querySelector('.form');              /* Selecciona el formulario */
 const btnBorrar = document.querySelector('.btnBorrar');   /* Selecciona el botón Borrar */
 resultado.style.display = 'none';                          /* Oculta el elemento resultado al cargar */

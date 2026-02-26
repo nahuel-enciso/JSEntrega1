@@ -1,5 +1,25 @@
 /* ESTILOS GENERALES - Aquí definimos cómo se ve la página */
 
+/* Variables CSS que cambian según el tema (claro u oscuro) */
+:root {
+  --bg-primary: #fff;              /* Color de fondo principal en modo claro */
+  --bg-secondary: #ddd;            /* Color de fondo secundario (body) */
+  --text-primary: #333;            /* Color del texto principal */
+  --text-secondary: #666;          /* Color del texto secundario */
+  --border-color: #ccc;            /* Color de bordes */
+  --form-bg: #f9f9f9;              /* Color de fondo del form */
+}
+
+/* Variables CSS para modo oscuro - se activan cuando body tiene la clase 'dark-mode' */
+body.dark-mode {
+  --bg-primary: #1e1e1e;           /* Fondo oscuro */
+  --bg-secondary: #0d0d0d;         /* Fondo más oscuro para body */
+  --text-primary: #e0e0e0;         /* Texto claro en modo oscuro */
+  --text-secondary: #b0b0b0;       /* Texto gris claro */
+  --border-color: #444;            /* Bordes grises oscuros */
+  --form-bg: #2a2a2a;              /* Fondo del form oscuro */
+}
+
 /* Resetear márgenes y padding: Quitamos los espacios por defecto que el navegador agrega */
 html,
 body {
@@ -11,12 +31,32 @@ body {
 body {
   display: flex;                    /* Usa flexbox para alinear elementos */
   flex-direction: column;            /* Alinea los elementos verticalmente (uno debajo del otro) */
-  background-color: #ddd;           /* Color de fondo gris */
+  background-color: var(--bg-secondary);  /* Usa la variable CSS para el color de fondo */
+  color: var(--text-primary);       /* Usa la variable CSS para el color del texto */
   min-height: 100vh;                /* Ocupa al menos toda la altura de la ventana */
   justify-content: center;           /* Centra los elementos verticalmente */
   align-items: center;              /* Centra los elementos horizontalmente */
   padding: 16px;                    /* Espacio interno alrededor */
   box-sizing: border-box;           /* Incluye el padding en el tamaño total */
+  transition: background-color 0.3s ease, color 0.3s ease;  /* Transición suave al cambiar tema */
+}
+
+/* Estilos del botón de cambio de tema (modo claro/oscuro) */
+.btn-dark-light {
+  position: absolute;               /* Se posiciona en una esquina */
+  top: 20px;                        /* A 20px del top */
+  right: 20px;                      /* A 20px desde la derecha */
+  background: none;                 /* Sin fondo */
+  border: none;                     /* Sin borde */
+  font-size: 1.5em;                 /* Tamaño grande para el icono */
+  cursor: pointer;                  /* Cursor de manita */
+  transition: transform 0.3s ease;  /* Animación suave */
+  z-index: 1000;                    /* Se pone encima de otros elementos */
+}
+
+/* Efecto al pasar el mouse sobre el botón de tema */
+.btn-dark-light:hover {
+  transform: scale(1.2);            /* Se agranda un poco al pasar el mouse */
 }
 
 /* Estilos del formulario */
@@ -27,11 +67,14 @@ form {
   max-width: 560px;                 /* Pero máximo 560px de ancho */
   margin: 0 auto;                   /* Centra el formulario horizontalmente */
   padding: 15px;                    /* Espacio interno en el formulario */
-  border: 1px solid #ccc;           /* Borde gris de 1px */
+  border: 1px solid;                /* Borde con color variable */
+  border-color: var(--border-color);  /* Usa la variable CSS del color de borde */
   border-radius: 8px;               /* Esquinas redondeadas */
-  background-color: #f9f9f9;        /* Color de fondo blanco casi puro */
+  background-color: var(--form-bg); /* Usa la variable CSS para el fondo */
   text-align: center;               /* Centra el texto */
   box-sizing: border-box;           /* Incluye padding y border en el tamaño */
+  color: var(--text-primary);       /* Color del texto */
+  transition: background-color 0.3s ease, border-color 0.3s ease;  /* Transición suave */
 }
 
 /* Estilos del contenedor de inputs (card-res-body) */
@@ -51,6 +94,14 @@ form {
   text-align: left;                 /* Alinea el texto a la izquierda */
   font-weight: 600;                 /* Texto más grueso/bold */
   white-space: nowrap;              /* No deja que el texto se divida en varias líneas */
+  color: var(--text-primary);       /* Color del texto usa variable CSS */
+}
+
+/* Estilos del título h2 */
+form h2 {
+  color: var(--text-primary);       /* Color del texto que cambia con el tema */
+  margin: 0 0 15px 0;               /* Espacio abajo del título */
+  transition: color 0.3s ease;      /* Transición suave al cambiar tema */
 }
 
 /* Estilos de los inputs y selects */
@@ -58,9 +109,19 @@ form {
 .card-res-body select {
   width: 100%;                      /* Ancho completo del contenedor */
   padding: 8px;                     /* Espacio interno en los inputs */
-  border: 1px solid #ccc;           /* Borde gris */
+  border: 1px solid;                /* Borde gris */
+  border-color: var(--border-color);  /* Usa la variable CSS del color */
   border-radius: 4px;               /* Esquinas levemente redondeadas */
   box-sizing: border-box;           /* Incluye padding en el tamaño */
+  background-color: var(--form-bg); /* Fondo del input */
+  color: var(--text-primary);       /* Color del texto del input */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;  /* Transición suave */
+}
+
+/* Estilos del placeholder (texto de ayuda) en los inputs */
+.card-res-body input::placeholder {
+  color: var(--text-secondary);     /* Color más tenue para el placeholder */
+  opacity: 0.7;                     /* Un poco transparente */
 }
 
 /* Estilos compartidos para ambos botones */
@@ -97,11 +158,13 @@ form {
     display: none;                  /* Al principio está oculto */
     margin-top: 8px;                /* Espacio arriba */
     padding: 8px;                   /* Espacio interno */
-    border-top: 2px solid #ccc;     /* Línea gris arriba */
+    border-top: 2px solid;          /* Línea gris arriba */
+    border-color: var(--border-color);  /* Usa la variable CSS del color */
     font-size: 1em;                 /* Tamaño de fuente normal */
     font-weight: 700;               /* Texto muy grueso */
-    color: #333;                    /* Color gris oscuro */
+    color: var(--text-primary);     /* Color del texto */
     text-align: center;             /* Centra el texto */
+    transition: border-color 0.3s ease, color 0.3s ease;  /* Transición suave */
 }
 
 /* Efecto del botón Borrar cuando pasas el mouse */

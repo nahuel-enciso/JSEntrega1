@@ -1,0 +1,203 @@
+# JS Flex: Segunda entrega
+
+### ✅ Lo que se pide para **aprobar**
+
+- Interacción con el usuario exclusivamente a través del DOM
+- Generación dinámica de elementos utilizando DOM, a partir de un array de objetos. 
+	[Click aquí para un ejemplo en código.]
+	(https://www.notion.so/JS-Flex-Segunda-entrega-128fd91cbf0f80898220d25003584c0b?pvs=21)
+- Incorporar eventos
+- Utilización de storage: 
+Deben enviarse al storage datos que se modifiquen en tiempo de ejecución y recuperarlos, mostrándolos en pantalla y visualizándolos al refrescar el sitio. (no es necesario usar sesión y local - solo 1 de los 2)
+Ejemplo: 
+Estás haciendo un ecommerce. 
+Los productos que vaya agregando el usuario al carrito deben almacenarse en storage. 
+Al ejecutar el programa, se debe chequear en el storage si existe ese array del carrito. 
+	Si existe, a partir de ese array se imprime el carrito en pantalla. 
+	Si no existe, simplemente se inicializa el array vacío. 
+		[Click aquí para ver cómo hacerlo.]
+		(https://www.notion.so/JS-Flex-Segunda-entrega-128fd91cbf0f80898220d25003584c0b?pvs=21)
+
+### 🚨 Tener en cuenta
+
+- Se entrega al menos un archivo html, un css y un js.
+- 🚫 No debe haber ninguna interacción por medio de `prompts` y `confirms`.
+- 🚫 No deben quedar `console.logs` al entregar el proyecto al profesor. 
+	Los `console.logs` nos sirven para testear funcionalidades, una vez realizado deben borrarse.
+- 🚨 Importar correctamente el archivo js en el documento html. 
+	Si se coloca en el **head**, asegurarse de incluir el atributo `defer` o su programa no se ejecutará correctamente.
+- 🚫 NO envolver todo el código del proyecto en el evento `DOMContentLoaded`. 
+	No necesitan ese evento si el js está bien importando en el documento html como se explicó en el punto anterior.  *Usar este método suele delatar uso de IA.*
+- 🚫 NO asignar métodos a objetos globales como `window`. 
+	Ejemplo de cosas que NO hacer: window.agregarAlCarrito(). 
+      Hacer funciones individuales en esos casos. 
+	Ejemplo: `function agregarAlCarrito() {}`. *Agregar funciones a window suele delatar uso de IA.*
+- 🚫 No debe haber código js en el documento html. 
+	Todos los eventos deben ser asignados desde el archivo js. **Códigos de este tipo serán rechazados**:
+
+```html
+<!-- Documento HTML -->
+<body>
+<!-- Esto **no está permitido**, es mala práctica así como agregar la etiqueta o atributo style en el html en lugar de asignar las propiedades css en su respectivo archivo -->
+		<button onclick="agregarAlCarrito()">Comprar</button>
+</body>
+```
+
+✅ La manera correcta. 
+	Asignamos el evento como corresponde desde el archivo js:
+
+```html
+<!-- Documento HTML -->
+<body>
+		<button id="btnComprar">Comprar</button>
+</body>
+```
+
+```jsx
+// archivo js
+const btnComprar = document.getElementById("btnComprar");
+
+// Opción 1: usar addEventListener
+btnComprar.addEventListener("click", agregarAlCarrito)
+
+// Opción 2: onclick
+btn.onclick = agregarAlCarrito;
+```
+
+# Cómo crear cards de manera dinámica utilizando el DOM a partir de un array de objetos
+	Es solo un ejemplo, no es para copiar y pegar sino para adaptarlo según lo que necesiten hacer en su proyecto.
+	La card la hice básica sin ningún estilo, ustedes deben agregar las clases para aplicar con css que necesiten.
+
+```html
+<!-- Documento HTML -->
+<body>
+	
+	<!-- En el html creamos el contenedor de nuestras cards. Puede ser la etiqueta que quieran, no necesariamente tiene que ser un section -->
+	<section id="cards-container">
+	</section>
+
+</body>
+```
+
+```jsx
+// Archivo js
+// **Paso 1**: Definir nuestro array de objetos
+const productos = [
+  {
+    nombre: "Manzana",
+    precio: 1.2,
+    imagen: "../images/manzana.jpg" 
+  },
+  {
+    nombre: "Banana",
+    precio: 0.8,
+    imagen: "../images/banana.jpg"
+  },
+  {
+    nombre: "Zanahoria",
+    precio: 0.5,
+    imagen: "../images/zanahoria.jpg" 
+  },
+  {
+    nombre: "Papa",
+    precio: 0.7,
+    imagen: "../images/papa.jpg"
+  }
+];
+
+// **Paso 2**: Función para imprimir los elementos en el html
+// Recordar utilizar siempre nombres simples y descriptivos.
+// No abreviar palabras y que no se entienda nada.
+// El array está declarado por fuera de la función, por lo que tenemos que pasarlo a través de parámetros
+function imprimirProductosEnHTML(productos) {
+// **Paso 3**: Obtenemos el contenedor de las cards desde el HTML const contenedor = document.getElementById("cards-container");
+// **Paso 4**: Con un **for**, recorro cada elemento del array
+// A mí me gusta usar el **for of** pero pueden usar un **forEach** también
+	for (const producto of productos) {
+// Por cada elemento del array, creamos una card
+	const card = document.createElement("div");
+		
+		card.innerHTML = `	<img src="${producto.img}"
+					<h3>${producto.nombre}</h3>
+					<!-- Aquí generamos un nombre de id dinámico para cada botón
+                    Esto lo hacemos para después poder obtenerlo y asignarle un evento -->
+					<button id="${producto.nombre}${producto.id}">Comprar</button>
+		`
+// 🚨 Una vez que tengo creada la card, la agregamos al contenedor en el html 
+	contenedor.appendChild(card)
+// Ahora que ya tengo agregada la card en el html, puedo asignarle el evento al botón de esa card
+	const boton = document.getElementById(`${producto.nombre}${producto.id}`)
+		
+// No podemos invocar una función al asignarla a un evento.
+// Como necesito pasarle un dato por parámetro,
+// una solución a esto es asignarle al evento click una función anónima (yo usé función flecha)	
+// y dentro de esa función anónima sí invocar al función.
+	boton.addEventListener("click", () => agregarAlCarrito(producto) )
+	}
+}
+
+imprimirProductosEnHTML(productos)
+```
+
+![Así se ve el botón en el html con el id generado dinámicamente]
+(https://prod-files-secure.s3.us-west-2.amazonaws.com/51c2fcd8-169e-4c39-a4c9-3aa732b6065c/21381bfb-70ee-45ae-8e23-e364894fe4c6/image.png)
+
+Así se ve el botón en el html con el id generado dinámicamente
+
+# Cosas a tener en cuenta a la hora de aplicar storage
+
+Ejemplo: Si se trata de un ecommerce, se debe enviar el array al storage en cada modificación del carrito: si se agrega/elimina productos, se actualiza el array en storage.
+
+Al ejecutar el programa, **preguntar si existe o no ese array en storage**. De esta manera imprimimos en pantalla existencias del carrito al refrescar la página de ser necesario, o simplemente recuperamos los datos que hayan quedado guardados previamente.
+
+```jsx
+// archivo js
+// A la hora de declarar el array del carrito utilizamos OR Operator.
+// Si existe el carrito en storage, se asigna a la variable carrito.
+// Si no existe, carrito se inicializa como array vacío []
+const carrito = JSON.parse(localStorage.getItem("carrito")) || []
+
+// Si hay elementos en el carrito, imprimir su contenido
+if (carrito.length > 0) {
+	imprimirCarritoEnHTML(carrito);
+}
+```
+
+Adaptar el uso de storage de acuerdo a la temática elegida en su proyecto.
+
+## Ejemplo por si quieren usar el evento submit
+
+Este evento debe usarse siempre y cuando se quieran extraer datos desde un formulario.
+
+```html
+<form id="miFormulario">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <button type="submit">Enviar</button>
+</form>
+```
+
+```jsx
+const formulario = document.getElementById("miFormulario")
+
+formulario.addEventListener("submit", function (event) {
+    // Previene el comportamiento predeterminado del formulario:
+    event.preventDefault();
+
+    // Se obtienen los valores de los campos del formulario:
+    const nombre = document.getElementById("nombre").value;
+    const email = document.getElementById("email").value;
+
+    // Hacer algo con los datos obtenidos
+    // Esto es solo de ejemplo
+    console.log("Nombre:", nombre);
+    console.log("Email:", email);
+
+    // Se limpian los campos del formulario
+    formulario.reset()
+});
+```
