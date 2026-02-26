@@ -1,6 +1,6 @@
-/* JAVASCRIPT - Aquí va la lógica e interactividad de la página */
+/* JAVASCRIPT - Aca va la lógica e interactividad de la página */
 
-/* ========== FUNCIONALIDAD DE MODO OSCURO/CLARO ========== */
+/* ========== FUNCIONALIDAD DE MODO CLARO/OSCURO ========== */
 
 /* Obtiene el botón para cambiar tema */
 const btnModoDarkLight = document.querySelector('#btnModoDarkLight');

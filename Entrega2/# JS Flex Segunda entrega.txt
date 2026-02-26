@@ -1,4 +1,4 @@
-# JS Flex: Segunda entrega
+# JS Flex: Segunda entrega.
 
 ### ✅ Lo que se pide para **aprobar**
 

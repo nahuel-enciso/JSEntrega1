@@ -1,5 +1,5 @@
 Entrega N°2 - Estructura del simulador
-Objetivos generales
+Objetivos generales:
 
 Mostrar tu simulador JS interactuando con HTML
 Integrar las herramientas JS aprendidas hasta aquí
